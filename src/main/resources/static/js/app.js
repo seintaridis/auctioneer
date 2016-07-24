@@ -37,12 +37,13 @@ app.config(function($routeProvider, $httpProvider){
 });
 
 
-app.controller('NavController', ['$scope', '$cookies', function($scope, $cookies) {
+app.controller('NavController', ['$scope', '$cookieStore', function($scope, $cookieStore) {
 
-    $scope.authenticated = $cookies.userLoggedIn;
+    $scope.authenticated = $cookieStore.get('UserIsLoggedIn');
 
     $scope.logout = function() {
-        $cookies.userLoggedIn = false;
+        // $cookies.userLoggedIn = false;
+        $cookieStore.remove("UserIsLoggedIn");
         $scope.authenticated = false;
         return true;
     };
@@ -50,7 +51,7 @@ app.controller('NavController', ['$scope', '$cookies', function($scope, $cookies
 
 }]);
 
-app.controller('UserController', ['$scope', '$http', '$location', '$cookies', function($scope, $http, $location, $cookies) {
+app.controller('UserController', ['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
 
     $scope.credentials = {
         username: '',
@@ -59,7 +60,8 @@ app.controller('UserController', ['$scope', '$http', '$location', '$cookies', fu
 
     $scope.login = function() {
         $scope.authenticated = true;
-        $cookies.userLoggedIn = true;
+        // $cookies.userLoggedIn = true;
+        $cookieStore.put("UserIsLoggedIn", true);
         console.log($scope.credentials.username);
         console.log($scope.credentials.password);
         $location.path("/");
