@@ -1,27 +1,69 @@
-// var index = angular.module('routerApp', ['ui.router']);
+// var app = angular.module('app', ['ui.router']);
 //
-// index.config(function($stateProvider, $urlRouterProvider) {
+// app.config(function($stateProvider, $urlRouterProvider) {
 //
-//     $urlRouterProvider.otherwise('/home');
+//     $urlRouterProvider.otherwise('/');
 //
 //     $stateProvider
 //
 //         .state('home', {
-//             url: '/',
+//             url: '/home',
 //             templateUrl: '/views/home.html'
 //         });
 //
+//
 // });
-//
-//
-var app = angular.module('app', ['ngRoute','ngResource']);
-app.config(function($routeProvider){
+
+
+var app = angular.module('app', ['ngRoute','ngResource', 'ngCookies']);
+app.config(function($routeProvider, $httpProvider){
     $routeProvider
-        .when('/home',{
-            templateUrl: '/views/home.html'
-            //controller: 'usersController'
+        .when('/',{
+            templateUrl: '/views/home.html',
+            controller: 'NavController',
+            controllerAs: 'controller'
+        })
+        .when('/login',{
+            templateUrl: "/views/login.html",
+            controller: 'UserController',
+            controllerAs: 'controller'
         })
         .otherwise(
             { redirectTo: '/'}
         );
+
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
 });
+
+
+app.controller('NavController', ['$scope', '$cookies', function($scope, $cookies) {
+
+    $scope.authenticated = $cookies.userLoggedIn;
+
+    $scope.logout = function() {
+        $cookies.userLoggedIn = false;
+        $scope.authenticated = false;
+        return true;
+    };
+
+
+}]);
+
+app.controller('UserController', ['$scope', '$http', '$location', '$cookies', function($scope, $http, $location, $cookies) {
+
+    $scope.credentials = {
+        username: '',
+        password: ''
+    };
+
+    $scope.login = function() {
+        $scope.authenticated = true;
+        $cookies.userLoggedIn = true;
+        console.log($scope.credentials.username);
+        console.log($scope.credentials.password);
+        $location.path("/");
+    };
+
+
+}]);

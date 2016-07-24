@@ -8,7 +8,7 @@ package ted;
 //
 //    @RequestMapping(path = "/")
 //    public String index() {
-//        return "/resources/index.html";
+//        return "/resources/static/index.html";
 //    }
 //
 //}
