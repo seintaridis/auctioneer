@@ -47,14 +47,15 @@ public class MainCtrl {
         if (user != null) { } // TODO: Throw exception if user exists.
 
         // Create User
+        Users new_user = UserMapper.registerRequestToUser(userSignUpRequestDto);
+        userRepository.save(new_user);
 
-        userRepository.save(user);
+        // Create dummy response
         long i =1;
-
         UserSignUpResponseDto userSignUpResponseDto = new UserSignUpResponseDto();
         userSignUpResponseDto.setUserId(i);
 
-        return userSignUpResponseDto; // TODO: Return something miningfull.
+        return userSignUpResponseDto; // TODO: Return something meaningfull.
 
     }
 
