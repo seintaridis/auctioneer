@@ -34,6 +34,8 @@ app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStor
             address: $scope.credentials.address
         };
 
+        console.log(request);
+
         $http.post('/signup', JSON.stringify(request)).then(function(response) {
             console.log(response);
         });

@@ -8,7 +8,6 @@ import com.dto.UserSignUpRequestDto;
 import com.dto.UserSignUpResponseDto;
 import com.entity.Users;
 import com.mappers.UserMapper;
-import com.sun.net.httpserver.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -43,17 +42,19 @@ public class MainCtrl {
 
     @RequestMapping(path="/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto register(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
-
         // TODO: Decide: Why List<Users> and not User?
         List<Users>  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
         if (user != null) { } // TODO: Throw exception if user exists.
 
-
         // Create User
-        user = (List<Users>) UserMapper.registerRequestToUser(userSignUpRequestDto);
-        userRepository.save(user);
 
-        return null; // TODO: Return correct object.
+        userRepository.save(user);
+        long i =1;
+
+        UserSignUpResponseDto userSignUpResponseDto = new UserSignUpResponseDto();
+        userSignUpResponseDto.setUserId(i);
+
+        return userSignUpResponseDto; // TODO: Return something miningfull.
 
     }
 
