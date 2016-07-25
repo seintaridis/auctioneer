@@ -28,6 +28,11 @@ app.config(function($routeProvider, $httpProvider){
             controller: 'UserController',
             controllerAs: 'controller'
         })
+        .when('/signup',{
+            templateUrl: "/views/signup.html",
+            controller: 'SignUpController',
+            controllerAs: 'controller'
+        })
         .otherwise(
             { redirectTo: '/'}
         );
@@ -60,10 +65,74 @@ app.controller('UserController', ['$scope', '$http', '$location', '$cookieStore'
 
     $scope.login = function() {
         $scope.authenticated = true;
-        // $cookies.userLoggedIn = true;
+
+        request = {
+            username: $scope.credentials.username,
+            password: $scope.credentials.password
+        };
+
+        $http.post('/login', JSON.stringify(request)).then(function(response) {
+            console.log(response)
+        });
+
         $cookieStore.put("UserIsLoggedIn", true);
         console.log($scope.credentials.username);
         console.log($scope.credentials.password);
+        $location.path("/");
+    };
+
+
+}]);
+
+app.controller('UserController', ['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
+
+    $scope.credentials = {
+        username: '',
+        password: ''
+    };
+
+    $scope.login = function() {
+        $scope.authenticated = true;
+
+        request = {
+            username: $scope.credentials.username,
+            password: $scope.credentials.password
+        };
+
+        $http.post('/login', JSON.stringify(request)).then(function(response) {
+            console.log(response)
+        });
+
+        $cookieStore.put("UserIsLoggedIn", true);
+        console.log($scope.credentials.username);
+        console.log($scope.credentials.password);
+        $location.path("/");
+    };
+
+
+}]);
+
+app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
+
+    $scope.formData = {
+        username: '',
+        password: ''
+    };
+
+    $scope.signup = function() {
+
+
+        request = {
+            username: $scope.credentials.username,
+            password: $scope.credentials.password
+        };
+
+        $http.post('/signup', JSON.stringify(request)).then(function(response) {
+            console.log(response)
+        });
+
+        $cookieStore.put("UserIsLoggedIn", true);
+        $scope.authenticated = true;
         $location.path("/");
     };
 

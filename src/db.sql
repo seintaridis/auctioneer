@@ -1,3 +1,5 @@
+# CREATE DATABASE auctioneer;
+USE auctioneer;
 -- phpMyAdmin SQL Dump
 -- version 4.4.10
 -- http://www.phpmyadmin.net

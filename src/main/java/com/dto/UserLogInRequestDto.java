@@ -7,6 +7,7 @@ public class UserLogInRequestDto {
 
     private String username;
     private String email;
+
     private String password;
 
     public String getUsername() {
@@ -31,5 +32,14 @@ public class UserLogInRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLogInRequestDto{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
