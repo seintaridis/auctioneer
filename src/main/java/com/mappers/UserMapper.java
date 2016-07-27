@@ -27,6 +27,7 @@ public class UserMapper {
         user.setLatitude(userSignUpDto.getLatitude());
         user.setLongitude(userSignUpDto.getLongtitude());
         user.setAddress(userSignUpDto.getAddress());
+        user.setRole(userSignUpDto.getRole());
         return user;
     }
 }

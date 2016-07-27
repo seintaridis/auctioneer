@@ -1,9 +1,9 @@
 'use strict';
 
-app.controller('UserController', ['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
+app.controller('UserController', ['$scope', '$location', 'RequestServices', function($scope, $location, RequestServices) {
 
     $scope.credentials = {
-        username: '',
+        username: '', // TODO: And email.
         password: ''
     };
 
@@ -15,14 +15,10 @@ app.controller('UserController', ['$scope', '$http', '$location', '$cookieStore'
             password: $scope.credentials.password
         };
 
-        $http.post('/login', JSON.stringify(request)).then(function(response) {
-            console.log(response);
-        });
+        RequestServices.login(request).then(function (response){
+            $location.path("/");
+        })
 
-        $cookieStore.put("UserIsLoggedIn", true);
-        console.log($scope.credentials.username);
-        console.log($scope.credentials.password);
-        $location.path("/");
     };
 
 

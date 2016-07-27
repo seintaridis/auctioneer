@@ -26,25 +26,27 @@ public class MainCtrl {
     @RequestMapping(path="/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
 
-
         List<Users> user = userRepository.findUserByUsernameAndPassword(userLogInRequestDto.getUsername(), userLogInRequestDto.getPassword());
 
-        System.out.println(userLogInRequestDto);
 
         if (user.isEmpty())
             throw new Exception("UserNotFound");
 
+
         UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
         userLogInResponseDto.setUserId((long) user.get(0).getUserId());
+        userLogInResponseDto.setRole((String) user.get(0).getRole());
 
         return userLogInResponseDto;
     }
 
     @RequestMapping(path="/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto register(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
+
         // TODO: Decide: Why List<Users> and not User?
         List<Users>  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
-        if (user != null) { } // TODO: Throw exception if user exists.
+
+        if (user != null) { } // TODO: Throw exception if user exists, to inform angular.
 
         // Create User
         Users new_user = UserMapper.registerRequestToUser(userSignUpRequestDto);

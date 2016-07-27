@@ -23,8 +23,20 @@ public class UserSignUpRequestDto {
     private Double longtitude;
 
     private String afm;
+
+
+
     private String address;
 
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getAddress() {
         return address;
