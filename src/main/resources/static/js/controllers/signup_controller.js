@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStore', function($scope, $http, $location, $cookieStore) {
+app.controller('SignUpController', ['$scope', '$location','RequestServices' , function($scope, $location, RequestServices) {
 
     $scope.credentials = {           // TODO: do we need this?
         username: '',
@@ -14,9 +14,11 @@ app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStor
         latitude: '',
         longtitude: '',
         afm: '',
-        address: ''
+        address: '',
+        role: ''
     };
 
+    console.log($scope.credentials.role);
 
     $scope.vaildateEmail = function(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,7 +29,7 @@ app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStor
 
     $scope.signup = function() {
         $scope.authenticated = true;
-
+        console.log("Signing up");
         var error = false;
         var miss_error = false;
 
@@ -37,21 +39,8 @@ app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStor
         $scope.mail_error= false;
 
 
-        var request = {
-            username: $scope.credentials.username,
-            password: $scope.credentials.password,
-            rep_password: $scope.credentials.rep_password,
-            first_name: $scope.credentials.first_name,
-            last_name: $scope.credentials.last_name,
-            mail: $scope.credentials.mail,
-            phone_number: $scope.credentials.phone_number,
-            latitude: $scope.credentials.latitude,
-            longtitude: $scope.credentials.longtitude,
-            afm: $scope.credentials.afm,
-            address: $scope.credentials.address
-        };
 
-        // UNCOMMENT THE FOLLOWING TO ENABLE MISSING FIELDS VALIDATION
+        //UNCOMMENT FOLLOWING LINES TO ENABLE VALIDATIONS
         // if ($scope.credentials.username === '') {
         //     $scope.username_missing_error = 'set';
         //     miss_error = true;
@@ -96,39 +85,52 @@ app.controller('SignUpController', ['$scope', '$http', '$location', '$cookieStor
         //     $scope.address_missing_error = 'set';
         //     miss_error = true;
         // }
+        //
+        //
+        // if ($scope.credentials.phone_number.length < 10 && miss_error == false) {
+        //     $scope.phone_number_error = 'set';
+        //     error = true;
+        // }
+        //
+        // if ($scope.credentials.password.length < 5 && miss_error == false) { // TODO: Should prevent pass_error to be sent.p
+        //     $scope.pass_len_error = 'set';
+        //     error = true;
+        // }
+        //
+        // if ($scope.credentials.password !== $scope.credentials.rep_password && miss_error == false) {
+        //     $scope.pass_error = 'set';
+        //     error = true;
+        // }
+        //
+        // if ($scope.vaildateEmail($scope.credentials.mail) != true && miss_error == false) {
+        //     $scope.mail_error = 'set';
+        //     error=true;
+        // }
 
 
-        if ($scope.credentials.phone_number.length < 10 && miss_error == false) {
-            $scope.phone_number_error = 'set';
-            error = true;
-        }
-
-        if ($scope.credentials.password.length < 5 && miss_error == false) { // TODO: Should prevent pass_error to be sent.p
-            $scope.pass_len_error = 'set';
-            error = true;
-        }
-
-        if ($scope.credentials.password !== $scope.credentials.rep_password && miss_error == false) {
-            $scope.pass_error = 'set';
-            error = true;
-        }
-
-        if ($scope.vaildateEmail($scope.credentials.mail) != true && miss_error == false) {
-            $scope.mail_error = 'set';
-            error=true;
-        }
+        var request = {
+            username: $scope.credentials.username,
+            password: $scope.credentials.password,
+            rep_password: $scope.credentials.rep_password,
+            first_name: $scope.credentials.first_name,
+            last_name: $scope.credentials.last_name,
+            mail: $scope.credentials.mail,
+            phone_number: $scope.credentials.phone_number,
+            latitude: $scope.credentials.latitude,
+            longtitude: $scope.credentials.longtitude,
+            afm: $scope.credentials.afm,
+            address: $scope.credentials.address,
+            role: $scope.credentials.role
+        };
 
 
         if (error ||  miss_error) return;
 
-        console.log(request);
 
-        $http.post('/signup', JSON.stringify(request)).then(function(response) {
-            console.log(response);
-        });
+        RequestServices.signup(request).then(function (response){
+            $location.path("/");
+        })
 
-        $cookieStore.put("UserIsLoggedIn", true);
-        $location.path("/");
 
 
     }

@@ -86,6 +86,14 @@
     <div class="alert alert-danger" ng-show="afm_missing_error">
         Please fill this field.
     </div>
+    <div class="form-group">
+        <label for="role">Role:</label>
+        <select class="form-control" id="role" name="role" ng-model="credentials.role">
+            <option selected="guest" value="seller">I am a guest</option>
+            <option value="buyer">I am a buyer</option>
+            <option value="seller">I am a seller</option>
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>
 </div>

@@ -21,6 +21,7 @@ public class Users {
     private double longitude;
     private String afm;
     private String phone;
+    private String role; // TODO: Validation for possible choices.
 
     @Id
     @Column(name = "UserID")
@@ -123,6 +124,16 @@ public class Users {
     }
 
     @Basic
+    @Column(name = "Role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Basic
     @Column(name = "Phone")
     public String getPhone() {
         return phone;
@@ -150,6 +161,7 @@ public class Users {
         if (address != null ? !address.equals(users.address) : users.address != null) return false;
         if (afm != null ? !afm.equals(users.afm) : users.afm != null) return false;
         if (phone != null ? !phone.equals(users.phone) : users.phone != null) return false;
+        if (role != null ? !role.equals(users.role) : users.role != null) return false;
 
         return true;
     }
@@ -171,6 +183,7 @@ public class Users {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (afm != null ? afm.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 }
