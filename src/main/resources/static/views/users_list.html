@@ -1,0 +1,149 @@
+<div class="container" ng-controller="UsersListController">
+
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search users" ng-model="searchUser">
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <td>
+                <a href="" ng-click="sortType = 'user.userId'; sortReverse = !sortReverse">
+                    User Id
+                    <span ng-show="sortType == 'user.userId' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.userId' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.username'; sortReverse = !sortReverse">
+                    User Name
+                    <span ng-show="sortType == 'user.username' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.username' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.first_name'; sortReverse = !sortReverse">
+                    First Name
+                    <span ng-show="sortType == 'user.first_name' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.first_name' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.last_name'; sortReverse = !sortReverse">
+                    Last Name
+                    <span ng-show="sortType == 'user.last_name' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.last_name' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.mail'; sortReverse = !sortReverse">
+                    E-Mail
+                    <span ng-show="sortType == 'user.mail' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.mail' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+
+            <td>
+                <a href="" ng-click="sortType = 'user.phone_number'; sortReverse = !sortReverse">
+                    Phone Number
+                    <span ng-show="sortType == 'user.phone_number' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.phone_number' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.latitude'; sortReverse = !sortReverse">
+                    Latitude
+                    <span ng-show="sortType == 'user.latitude' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.latitude' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.longtitude'; sortReverse = !sortReverse">
+                    Longtitude
+                    <span ng-show="sortType == 'user.longtitude' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.longtitude' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.afm'; sortReverse = !sortReverse">
+                    ΑΦΜ
+                    <span ng-show="sortType == 'user.afm' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.afm' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.address'; sortReverse = !sortReverse">
+                    Address
+                    <span ng-show="sortType == 'user.address' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.address' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="" ng-click="sortType = 'user.role'; sortReverse = !sortReverse">
+                    Role
+                    <span ng-show="sortType == 'user.role' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'user.role' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                    Edit User
+            </td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchUser">
+            <td>{{user.userId}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.mail}}</td>
+            <td>{{user.phone_number}}</td>
+            <td>{{user.latitude}}</td>
+            <td>{{user.longtitude}}</td>
+            <td>{{user.afm}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.role}}</td>
+            <td><button  ng-click="show_user(user)"><img class="edit_image" src="images/edit.png" border="0"></button></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+    <div ng-if="current_user">
+        <div class="col-xs-12"><h2 class="cap">{{current_user.username}} </h2></div>
+        <!--ADD THE NEXT FOR GENDRE SUPPORT-->
+        <!--<i ng-show="u.user.gender=='female'" class="fa fa-female"></i><i ng-show="u.user.gender=='male'" class="fa fa-male"></i>-->
+        <div class="col-md-3 col-xs-6 small">
+            <label>Id</label> {{u.user.userId}}<br>
+            <label>Username</label> {{u.user.username}}<br>
+            <label>First Name</label> {{current_user.first_name}}<br>
+            <label>Last Name</label> {{current_user.last_name}}<br>
+            <br><br>
+            <button type="button" class="btn btn-primary" ng-click="approve_user(current_user.userId)">Validate User</button>
+        </div>
+        <div class="col-md-3 col-xs-6 small">
+            <label>Address</label> {{current_user.address}}<br>
+            <label>Latitude</label> {{current_user.latitude}}<br>
+            <label>Longtitude</label> {{current_user.longtitude}}<br>
+        </div>
+        <div class="col-md-3 col-xs-6 small">
+            <label>Email</label> {{current_user.mail}}
+            <label>Phone</label> {{current_user.phone_number}}<br>
+            <label>ΑΦΜ</label> {{current_user.afm}}<br>
+            <label>Role</label> {{current_user.role}}<br>
+        </div>
+        <!--<div class="col-md-2 col-xs-12 text-center">-->
+            <!--<img title="{{u.user.name.first}}" src="{{u.user.picture}}" class="img-thumbnail img-responsive img-circle center-block">-->
+        <!--</div>-->
+        <div class="col-xs-12"><hr></div>
+    </div>
+
+</div>
