@@ -22,6 +22,24 @@ public class Users {
     private String afm;
     private String phone;
     private String role; // TODO: Validation for possible choices.
+    private String gender;
+    private Boolean verified;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
 
     @Id
     @Column(name = "UserID")
@@ -161,7 +179,6 @@ public class Users {
         if (address != null ? !address.equals(users.address) : users.address != null) return false;
         if (afm != null ? !afm.equals(users.afm) : users.afm != null) return false;
         if (phone != null ? !phone.equals(users.phone) : users.phone != null) return false;
-        if (role != null ? !role.equals(users.role) : users.role != null) return false;
 
         return true;
     }
