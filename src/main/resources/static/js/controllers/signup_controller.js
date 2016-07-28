@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('SignUpController', ['$scope', '$location','RequestServices' , function($scope, $location, RequestServices) {
+app.controller('SignUpController', ['$scope', '$location','RequestServices' , 'sharedProperties', function($scope, $location, RequestServices, sharedProperties) {
 
     $scope.credentials = {           // TODO: do we need this?
         username: '',
@@ -18,7 +18,6 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , fu
         role: ''
     };
 
-    console.log($scope.credentials.role);
 
     $scope.vaildateEmail = function(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -29,7 +28,6 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , fu
 
     $scope.signup = function() {
         $scope.authenticated = true;
-        console.log("Signing up");
         var error = false;
         var miss_error = false;
 
@@ -127,10 +125,12 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , fu
         if (error ||  miss_error) return;
 
 
-        RequestServices.signup(request).then(function (response){
-            $location.path("/");
-        })
-
+        // RequestServices.signup(request).then(function (response){
+        //     $scope.succesful_signup = true;
+        //     $location.path("/");
+        // })
+        sharedProperties.setSuccSignup(true);
+        $location.path("/");
 
 
     }
