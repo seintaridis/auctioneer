@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NavController', ['$scope', '$cookies', function($scope, $cookies) {
+app.controller('NavController', ['$scope', '$cookies', '$location', function($scope, $cookies, $location) {
 
     $scope.authenticated = false;
     if ($cookies.getObject('auctioneer_user')) { $scope.authenticated = true; }
@@ -12,5 +12,9 @@ app.controller('NavController', ['$scope', '$cookies', function($scope, $cookies
         return true;
     };
 
+
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
 
 }]);
