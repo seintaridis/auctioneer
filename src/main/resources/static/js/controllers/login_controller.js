@@ -16,7 +16,8 @@ app.controller('UserController', ['$scope', '$location', 'RequestServices', func
         };
 
         RequestServices.login(request).then(function (response){
-            $location.path("/");
+           if (response.role === 'admin') { $location.path("/admin_panel"); }
+           else { $location.path("/="); }
         })
 
     };

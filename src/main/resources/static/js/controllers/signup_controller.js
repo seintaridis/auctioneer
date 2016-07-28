@@ -125,12 +125,10 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , 's
         if (error ||  miss_error) return;
 
 
-        // RequestServices.signup(request).then(function (response){
-        //     $scope.succesful_signup = true;
-        //     $location.path("/");
-        // })
-        sharedProperties.setSuccSignup(true);
-        $location.path("/");
+        RequestServices.signup(request).then(function (response){
+            sharedProperties.setSuccSignup(true);
+            $location.path("/");
+        })
 
 
     }
