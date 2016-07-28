@@ -17,8 +17,10 @@ app.config(function($routeProvider, $httpProvider){
             controller: 'SignUpController',
             controllerAs: 'controller'
         })
-        .when('/succesful_signup',{
-            templateUrl: "/views/succesful_signup.html"
+        .when('/admin_panel',{
+            templateUrl: "/views/admin_panel.html",
+            controller: 'AdminController',
+            controllerAs: 'controller'
         })
         .otherwise(
             { redirectTo: '/'}
