@@ -4,7 +4,7 @@ app.config(function($routeProvider, $httpProvider){
     $routeProvider
         .when('/',{
             templateUrl: '/views/home.html',
-            controller: 'NavController',
+            controller: 'HomeController',
             controllerAs: 'controller'
         })
         .when('/login',{
@@ -16,6 +16,9 @@ app.config(function($routeProvider, $httpProvider){
             templateUrl: "/views/signup.html",
             controller: 'SignUpController',
             controllerAs: 'controller'
+        })
+        .when('/succesful_signup',{
+            templateUrl: "/views/succesful_signup.html"
         })
         .otherwise(
             { redirectTo: '/'}

@@ -1,9 +1,9 @@
 'use strict';
 
 app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
-    var reqServices = {};
+    var services = {};
 
-    reqServices.login = function(request){
+    services.login = function(request){
         return $http.post('/login', request)
             .then(function (response) {
                 var obj = {
@@ -17,7 +17,7 @@ app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
 
     };
 
-    reqServices.signup = function(request){
+    services.signup = function(request){
         return $http.post('/signup', request)
             .then(function (response) {
                 var obj = {
@@ -31,5 +31,5 @@ app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
 
     };
 
-    return reqServices;
+    return services;
 }])

@@ -31,10 +31,14 @@
 <script src="/js/config.js"></script>
 
 <script src="/js/controllers/nav_controller.js"></script>
+<script src="/js/controllers/home_controller.js"></script>
 <script src="/js/controllers/login_controller.js"></script>
 <script src="/js/controllers/signup_controller.js"></script>
 
 <script src="/js/services/RequestServices.js"></script>
+<script src="/js/services/sharedProperties.js"></script>
+
+<script src="/js/directives/header.js"></script>
 
 <!doctype html>
 <html>
@@ -46,14 +50,6 @@
 <body ng-app="app">
 
 
-<div ng-controller="NavController" class="container">
-    <ul class="nav nav-pills" role="tablist">
-        <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
-        <li ng-class="{ active: isActive('/login')}" ng-show="!authenticated"><a href="#/login"">LogIn</a></li>
-        <li ng-class="{ active: isActive('/signup')}" ng-show="!authenticated"><a href="#/signup"">SignUp</a></li>
-        <li ng-show="authenticated"><a href="" ng-click="logout()">LogOut</a></li>
-    </ul>
-</div>
 
 
 <div ng-view class="container"></div>
