@@ -40,5 +40,19 @@ app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
 
     };
 
+
+    services.approve_user = function(userId){
+        var obj = {
+            userId: userId
+        };
+
+        return $http.post('/approve_user', obj)
+            .then(function (response) {
+                console.log(response);
+                return response.data;
+            });
+
+    };
+
     return services;
 }])

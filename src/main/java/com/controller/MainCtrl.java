@@ -3,12 +3,14 @@ package com.controller;
 
 import com.dao.UserRepository;
 import com.dto.UserDto;
+import com.dto.VerifyRequestDto;
 import com.dto.UserLoginRequestDto;
 import com.dto.UserLogInResponseDto;
 import com.dto.UserSignUpRequestDto;
 import com.dto.UserSignUpResponseDto;
 import com.entity.Users;
 import com.mappers.UserMapper;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -61,19 +63,27 @@ public class MainCtrl {
         return convertToDTOs(users);
     }
 
+    @RequestMapping(path="/approve_user", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public void approve_user(@RequestBody VerifyRequestDto verifyRequestDto) throws Exception {
+        Users user = userRepository.findUserByUserId(verifyRequestDto.getUserId());
+
+        user.setVerified(Boolean.TRUE);
+        userRepository.save(user);
+    }
+
     @RequestMapping(path="/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserLogInResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) throws Exception {
 
-        List<Users> user = userRepository.findUserByUsernameAndPassword(userLoginRequestDto.getUsername(), userLoginRequestDto.getPassword());
+        Users user = userRepository.findUserByUsernameAndPassword(userLoginRequestDto.getUsername(), userLoginRequestDto.getPassword());
 
 
-        if (user.isEmpty())
+        if (user == null)
             throw new Exception("UserNotFound");
 
 
         UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
-        userLogInResponseDto.setUserId((long) user.get(0).getUserId());
-        userLogInResponseDto.setRole((String) user.get(0).getRole());
+        userLogInResponseDto.setUserId((long) user.getUserId());
+        userLogInResponseDto.setRole((String) user.getRole());
 
         return userLogInResponseDto;
     }
@@ -82,7 +92,7 @@ public class MainCtrl {
     public UserSignUpResponseDto register(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
 
         // TODO: Decide: Why List<Users> and not User?
-        List<Users>  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
+        Users  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
 
         if (user != null) { } // TODO: Throw exception if user exists, to inform angular.
 

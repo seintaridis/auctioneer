@@ -11,8 +11,9 @@ app.controller('UsersListController', ['$scope', 'RequestServices', function($sc
     };
 
     $scope.approve_user = function (userId) {
-        console.log('will hit api to approve user here');
-        console.log(userId);
+        RequestServices.approve_user(userId).then(function (response){
+            console.log(response);
+        });
     };
 
     RequestServices.users_list().then(function (response){

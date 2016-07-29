@@ -203,4 +203,5 @@ public class Users {
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
+
 }
