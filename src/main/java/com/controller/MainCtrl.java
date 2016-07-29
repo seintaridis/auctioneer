@@ -8,6 +8,7 @@ import com.dto.UserSignUpRequestDto;
 import com.dto.UserSignUpResponseDto;
 import com.entity.Users;
 import com.mappers.UserMapper;
+import com.user.UserAuthorizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RestController
@@ -23,37 +25,49 @@ public class MainCtrl {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(path="/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @Autowired
+    private UserAuthorizer userAuthorizer;
+
+
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
 
-        List<Users> user = userRepository.findUserByUsernameAndPassword(userLogInRequestDto.getUsername(), userLogInRequestDto.getPassword());
+        //search for user
+        Users user = userRepository.findUserByUsernameAndPassword(userLogInRequestDto.getUsername(), userLogInRequestDto.getPassword());
+        if (user == null)
+            throw new Exception("UserNotFoundddd");
+
+        //generate session token
+        UUID genetatedToken = UUID.randomUUID();
 
 
-        if (user.isEmpty())
-            throw new Exception("UserNotFound");
-
-
+        //prepare response
         UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
-        userLogInResponseDto.setUserId((long) user.get(0).getUserId());
-        userLogInResponseDto.setRole((String) user.get(0).getRole());
+        userLogInResponseDto.setUserId((long) user.getUserId());
+        userLogInResponseDto.setRole((String) user.getRole());
+        userLogInResponseDto.setGeneratedToken(genetatedToken);
+
+        //put session token to hashmap
+        userAuthorizer.setUserSession(genetatedToken, (long) user.getUserId());
 
         return userLogInResponseDto;
     }
 
-    @RequestMapping(path="/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(path = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto register(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
 
-        // TODO: Decide: Why List<Users> and not User?
-        List<Users>  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
+        Users user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
 
-        if (user != null) { } // TODO: Throw exception if user exists, to inform angular.
+        if (user != null) {
+        } // TODO: Throw exception if user exists, to inform angular.
 
         // Create User
         Users new_user = UserMapper.registerRequestToUser(userSignUpRequestDto);
         userRepository.save(new_user);
 
         // Create dummy response
-        long i =1;
+        long i = 1;
         UserSignUpResponseDto userSignUpResponseDto = new UserSignUpResponseDto();
         userSignUpResponseDto.setUserId(i);
 
