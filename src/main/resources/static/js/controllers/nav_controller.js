@@ -5,9 +5,10 @@ app.controller('NavController', ['$scope', '$cookies', '$location', 'sharedPrope
     $scope.authenticated = $cookies.getObject('auctioneer_user');
 
     $scope.logout = function() {
-        console.log('bye')
+        console.log('bye');
+        sharedProperties.setSuccSignup(false);
         $cookies.remove("auctioneer_user");
-        $scope.authenticated = false
+        $scope.authenticated = false;
         $location.path('/');
         return true;
     };
