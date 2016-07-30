@@ -109,7 +109,7 @@
             <td>{{user.afm}}</td>
             <td>{{user.address}}</td>
             <td>{{user.role}}</td>
-            <td><button  ng-click="show_user(user)"><img class="edit_image" src="images/edit.png" border="0"></button></td>
+            <td><button  ng-click="show_user(user.userId)"><img class="edit_image" src="images/edit.png" border="0"></button></td>
         </tr>
         </tbody>
 
@@ -128,7 +128,7 @@
             <label>First Name</label> {{current_user.first_name}}<br>
             <label>Last Name</label> {{current_user.last_name}}<br>
             <br><br>
-            <button type="button" class="btn btn-primary" ng-click="approve_user(current_user.userId)">Validate User</button>
+            <button type="button" class="btn btn-primary" ng-disabled="isDisabled" ng-click="approve_user(current_user.userId)">Verify User</button>
         </div>
         <div class="col-md-3 col-xs-6 small">
             <label>Address</label> {{current_user.address}}<br>

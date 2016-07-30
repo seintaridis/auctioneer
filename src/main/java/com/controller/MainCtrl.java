@@ -71,6 +71,14 @@ public class MainCtrl {
         userRepository.save(user);
     }
 
+    @RequestMapping(path="/get_user/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public UserDto get_user(@PathVariable int userId) throws Exception {
+        System.out.println(userId);
+        Users user = userRepository.findUserByUserId(userId);
+
+        return UserMapper.registerUsersToUser(user);
+    }
+
     @RequestMapping(path="/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserLogInResponseDto login(@RequestBody UserLoginRequestDto userLoginRequestDto) throws Exception {
 
@@ -90,7 +98,7 @@ public class MainCtrl {
 
     @RequestMapping(path="/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto register(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
-
+        System.out.println(userSignUpRequestDto);
         // TODO: Decide: Why List<Users> and not User?
         Users  user = userRepository.findUserByUsernameAndPassword(userSignUpRequestDto.getUsername(), userSignUpRequestDto.getPassword());
 

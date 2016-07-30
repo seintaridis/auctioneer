@@ -35,7 +35,7 @@ CREATE TABLE `Users` (
   `Afm` varchar(255) NOT NULL,
   `Phone` varchar(255) NOT NULL,
   `Role` varchar(10) NOT NULL,
-  `Gender` varchar(5) NOT NULL,
+  `Gender` varchar(10),
   `Verified` BOOLEAN NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 

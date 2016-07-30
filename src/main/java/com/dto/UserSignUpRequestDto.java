@@ -30,6 +30,9 @@ public class UserSignUpRequestDto {
 
     private String role;
 
+    private String gender;
+
+
     public String getRole() {
         return role;
     }
@@ -126,5 +129,30 @@ public class UserSignUpRequestDto {
         this.longtitude = longtitude;
     }
 
+    public String getGender() {
+        return gender;
+    }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "UserSignUpRequestDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", rep_password='" + rep_password + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", latitude=" + latitude +
+                ", longtitude=" + longtitude +
+                ", afm='" + afm + '\'' +
+                ", address='" + address + '\'' +
+                ", role='" + role + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
 }

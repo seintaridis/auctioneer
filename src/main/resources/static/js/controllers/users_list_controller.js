@@ -6,12 +6,18 @@ app.controller('UsersListController', ['$scope', 'RequestServices', function($sc
     $scope.sortReverse  = false;  // default sort order
     $scope.searchUser   = '';     // default search/filter term
 
-    $scope.show_user = function (user) {
-      $scope.current_user = user;
+
+    $scope.show_user = function (userId) {
+
+        RequestServices.get_user(userId).then(function (response){
+            $scope.current_user = response;
+            $scope.isDisabled = response.verified;
+      });
     };
 
     $scope.approve_user = function (userId) {
         RequestServices.approve_user(userId).then(function (response){
+            $scope.isDisabled = true;
             console.log(response);
         });
     };

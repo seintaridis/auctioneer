@@ -5,6 +5,7 @@ package com.mappers;
 
 
 import com.dto.UserSignUpRequestDto;
+import com.dto.UserDto;
 
 import com.entity.Users;
 
@@ -28,6 +29,33 @@ public class UserMapper {
         user.setLongitude(userSignUpDto.getLongtitude());
         user.setAddress(userSignUpDto.getAddress());
         user.setRole(userSignUpDto.getRole());
+        user.setGender(userSignUpDto.getGender());
+        user.setVerified(false);
         return user;
+    }
+
+
+    public static UserDto registerUsersToUser(Users user) {
+
+        if (user == null)
+            return null;
+
+        UserDto  userDto = new UserDto();
+        userDto.setUserId(user.getUserId());
+        userDto.setUsername(user.getUsername());
+        userDto.setMail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setFirst_name(user.getFirstName());
+        userDto.setLast_name(user.getLastName());
+        userDto.setPhone_number(user.getPhone());
+        userDto.setAfm(user.getAfm());
+        userDto.setLatitude(user.getLatitude());
+        userDto.setLongtitude(user.getLongitude());
+        userDto.setAddress(user.getAddress());
+        userDto.setRole(user.getRole());
+        userDto.setGender(user.getGender());
+        userDto.setVerified(user.getVerified());
+
+        return userDto;
     }
 }

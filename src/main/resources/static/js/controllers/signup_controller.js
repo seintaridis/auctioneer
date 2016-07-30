@@ -15,7 +15,8 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , 's
         longtitude: '',
         afm: '',
         address: '',
-        role: ''
+        role: '',
+        gender: ''
     };
 
 
@@ -118,13 +119,14 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , 's
             longtitude: $scope.credentials.longtitude,
             afm: $scope.credentials.afm,
             address: $scope.credentials.address,
-            role: $scope.credentials.role
+            role: $scope.credentials.role,
+            gender: $scope.credentials.gender
         };
 
 
         if (error ||  miss_error) return;
 
-
+        console.log(request);
         RequestServices.signup(request).then(function (response){
             sharedProperties.setSuccSignup(true);
             $location.path("/");
