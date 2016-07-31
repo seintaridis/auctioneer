@@ -29,6 +29,8 @@ CREATE TABLE `Users` (
   `Password` varchar(255) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
+  `BuyerRating` double not null,
+  `SellerRating` double not null,
   `Address` varchar(200) NOT NULL,
   `Latitude` double(10,6) NOT NULL,
   `Longitude` double(10,6) NOT NULL,
@@ -43,8 +45,8 @@ CREATE TABLE `Users` (
 -- Dumping data for table `Users`
 --
 
-INSERT INTO `Users` (`UserID`, `LastName`, `FirstName`, `Password`, `Username`, `Email`, `Address`, `Latitude`, `Longitude`, `Afm`, `Phone`, `Role`, `Gender`, `Verified`) VALUES
-  (25, 'Paparigopoulos', 'Lemonemboras', '123456', 'cocoblocos', 'jimseinta@gmail.com', 'praxitelous', 37.434003, 25.274956, '23242343423', '6987122499', 'admin', 'male', TRUE);
+INSERT INTO `Users` (`UserID`, `LastName`, `FirstName`, `Password`, `Username`, `Email`, `Address`, `Latitude`, `Longitude`, `Afm`, `Phone`, `Role`, `Gender`, `Verified`, `BuyerRating`, `SellerRating`) VALUES
+  (25, 'Paparigopoulos', 'Lemonemboras', '123456', 'cocoblocos', 'jimseinta@gmail.com', 'praxitelous', 37.434003, 25.274956, '23242343423', '6987122499', 'admin', 'male', TRUE, 0.0, 0.0);
 
 --
 -- Indexes for dumped tables
