@@ -119,7 +119,7 @@ app.controller('SignUpController', ['$scope', '$location','RequestServices' , 's
             longtitude: $scope.credentials.longtitude,
             afm: $scope.credentials.afm,
             address: $scope.credentials.address,
-            role: $scope.credentials.role,
+            role: 'user',
             gender: $scope.credentials.gender
         };
 
