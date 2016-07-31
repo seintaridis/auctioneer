@@ -7,6 +7,8 @@ import com.dto.UserLogInResponseDto;
 import com.dto.UserSignUpRequestDto;
 import com.dto.UserSignUpResponseDto;
 import com.entity.Users;
+
+import com.exceptions.BadRequestException;
 import com.mappers.UserMapper;
 import com.user.UserAuthorizer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -29,15 +30,14 @@ public class MainCtrl {
     private UserAuthorizer userAuthorizer;
 
 
-
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ExceptionHandler({BadRequestException.class})
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
 
         //search for user
         Users user = userRepository.findUserByUsernameAndPassword(userLogInRequestDto.getUsername(), userLogInRequestDto.getPassword());
         if (user == null)
-            throw new Exception("UserNotFoundddd");
-
+            throw new BadRequestException("User not found");
         //generate session token
         UUID genetatedToken = UUID.randomUUID();
 
