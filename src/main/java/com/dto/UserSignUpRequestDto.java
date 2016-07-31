@@ -28,18 +28,9 @@ public class UserSignUpRequestDto {
 
     private String address;
 
-    private String role;
 
     private String gender;
 
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getAddress() {
         return address;
@@ -151,7 +142,6 @@ public class UserSignUpRequestDto {
                 ", longtitude=" + longtitude +
                 ", afm='" + afm + '\'' +
                 ", address='" + address + '\'' +
-                ", role='" + role + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
     }

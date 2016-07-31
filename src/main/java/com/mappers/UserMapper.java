@@ -28,7 +28,7 @@ public class UserMapper {
         user.setLatitude(userSignUpDto.getLatitude());
         user.setLongitude(userSignUpDto.getLongtitude());
         user.setAddress(userSignUpDto.getAddress());
-        user.setRole(userSignUpDto.getRole());
+        user.setRole("user");
         user.setGender(userSignUpDto.getGender());
         user.setVerified(false);
         return user;
