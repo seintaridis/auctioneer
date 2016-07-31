@@ -13,10 +13,15 @@ app.service("RequestServices", ['$http', '$cookies', 'sharedProperties', functio
                     verified: response.data.verified
                 };
                 $cookies.putObject('auctioneer_user', obj);
-                return obj;
+                return response.data;
+            })
+            .catch(function(response) {
+                return response;
+            })
+            .finally(function() {
+                console.log("Finished processing request.");
             });
-
-    };
+        };
 
     services.signup = function(request){
         return $http.post('/signup', request)

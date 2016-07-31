@@ -13,7 +13,6 @@ import com.entity.Users;
 import com.exceptions.BadRequestException;
 import com.mappers.UserMapper;
 import com.user.UserAuthorizer;
-import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -79,7 +78,6 @@ public class MainCtrl {
 
     @RequestMapping(path="/get_user/{userId}", method = RequestMethod.GET, produces = "application/json")
     public UserDto get_user(@PathVariable int userId) throws Exception {
-        System.out.println(userId);
         Users user = userRepository.findUserByUserId(userId);
 
         return UserMapper.registerUsersToUser(user);
@@ -88,24 +86,22 @@ public class MainCtrl {
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ExceptionHandler({BadRequestException.class})
     public UserLogInResponseDto login(@RequestBody UserLoginRequestDto userLogInRequestDto) throws Exception {
-
         //search for user
         Users user = userRepository.findUserByUsernameAndPassword(userLogInRequestDto.getUsername(), userLogInRequestDto.getPassword());
         if (user == null)
             throw new BadRequestException("User not found");
         //generate session token
-        UUID genetatedToken = UUID.randomUUID();
-
+        UUID generatedToken = UUID.randomUUID();
 
         //prepare response
         UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
         userLogInResponseDto.setUserId((long) user.getUserId());
         userLogInResponseDto.setRole((String) user.getRole());
-        userLogInResponseDto.setGeneratedToken(genetatedToken);
+        userLogInResponseDto.setGeneratedToken(generatedToken);
+
 
         //put session token to hashmap
-        userAuthorizer.setUserSession(genetatedToken, (long) user.getUserId());
-
+        userAuthorizer.setUserSession(generatedToken, (long) user.getUserId());
         return userLogInResponseDto;
     }
 

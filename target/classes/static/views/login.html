@@ -1,8 +1,8 @@
 <header></header>
 <h1>Log In</h1>
 <div  ng-controller="UserController">
-<div class="alert alert-danger" ng-show="error">
-    There was a problem logging in. Please try again.
+<div class="alert alert-danger" ng-show="user_error">
+    <p>The username and password you’ve entered doesn’t match any account. <a href="#/signup">Sign up for an account. </a></p>
 </div>
 <form role="form" ng-submit="login()">
     <div class="form-group">

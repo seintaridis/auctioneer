@@ -42,6 +42,7 @@ public class UserLogInResponseDto {
         return "UserLogInResponseDto{" +
                 "userId=" + userId +
                 ", role='" + role + '\'' +
+                ", generatedToken=" + generatedToken +
                 '}';
     }
 }
