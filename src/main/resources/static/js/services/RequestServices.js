@@ -1,6 +1,6 @@
 'use strict';
 
-app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
+app.service("RequestServices", ['$http', '$cookies', 'sharedProperties', function($http, $cookies, sharedProperties) {
     var services = {};
 
     services.login = function(request){
@@ -9,7 +9,8 @@ app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
                 var obj = {
                     id: response.data.userId,
                     role: response.data.role,
-                    token: 'response.data.token'
+                    token: 'response.data.token',
+                    verified: response.data.verified
                 };
                 $cookies.putObject('auctioneer_user', obj);
                 return obj;
@@ -27,6 +28,41 @@ app.service("RequestServices", ['$http', '$cookies', function($http, $cookies) {
                 };
                 $cookies.putObject('auctioneer_user', obj);
                 return obj;
+            });
+
+    };
+
+    services.users_list = function(){
+        return $http.get('/get_user_list')
+            .then(function (response) {
+                console.log(response);
+                return response.data;
+            });
+
+    };
+
+
+    services.get_user = function(userId){
+        var url = '/get_user/'.concat(userId);
+
+        return $http.get(url)
+            .then(function (response) {
+                console.log(response);
+                return response.data;
+            });
+
+    };
+
+    services.approve_user = function(userId){
+        sharedProperties.setSuccSignup(false);
+        var obj = {
+            userId: userId
+        };
+
+        return $http.post('/approve_user', obj)
+            .then(function (response) {
+                console.log(response);
+                return response.data;
             });
 
     };

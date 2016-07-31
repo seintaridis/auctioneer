@@ -34,15 +34,17 @@ CREATE TABLE `Users` (
   `Longitude` double(10,6) NOT NULL,
   `Afm` varchar(255) NOT NULL,
   `Phone` varchar(255) NOT NULL,
-  `Role` varchar(255) NOT NULL
+  `Role` varchar(10) NOT NULL,
+  `Gender` varchar(10),
+  `Verified` BOOLEAN NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Users`
 --
 
-INSERT INTO `Users` (`UserID`, `LastName`, `FirstName`, `Password`, `Username`, `Email`, `Address`, `Latitude`, `Longitude`, `Afm`, `Phone`, `Role`) VALUES
-  (25, 'Paparigopoulos', 'Lemonemboras', '123456', 'cocoblocos', 'jimseinta@gmail.com', 'praxitelous', 37.434003, 25.274956, '23242343423', '6987122499', 'admin');
+INSERT INTO `Users` (`UserID`, `LastName`, `FirstName`, `Password`, `Username`, `Email`, `Address`, `Latitude`, `Longitude`, `Afm`, `Phone`, `Role`, `Gender`, `Verified`) VALUES
+  (25, 'Paparigopoulos', 'Lemonemboras', '123456', 'cocoblocos', 'jimseinta@gmail.com', 'praxitelous', 37.434003, 25.274956, '23242343423', '6987122499', 'admin', 'male', TRUE);
 
 --
 -- Indexes for dumped tables

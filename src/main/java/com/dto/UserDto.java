@@ -1,16 +1,16 @@
 package com.dto;
 
 /**
- * Created by Panos on 25/7/16.
+ * Created by Panos on 28/7/16.
  */
+public class UserDto {
 
+    private Integer userId;
 
-public class UserSignUpRequestDto {
     private String username;
 
 
     private String password;
-    private String rep_password;
 
     private String first_name;
 
@@ -32,21 +32,31 @@ public class UserSignUpRequestDto {
 
     private String gender;
 
+    private Boolean verified;
 
-    public String getRole() {
-        return role;
+    public Boolean getVerified() {
+        return verified;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
 
-    public String getAddress() {
-        return address;
+    public String getGender() {
+        return gender;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -63,14 +73,6 @@ public class UserSignUpRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRep_password() {
-        return rep_password;
-    }
-
-    public void setRep_password(String rep_password) {
-        this.rep_password = rep_password;
     }
 
     public String getFirst_name() {
@@ -105,14 +107,6 @@ public class UserSignUpRequestDto {
         this.phone_number = phone_number;
     }
 
-    public String getAfm() {
-        return afm;
-    }
-
-    public void setAfm(String afm) {
-        this.afm = afm;
-    }
-
     public Double getLatitude() {
         return latitude;
     }
@@ -129,30 +123,27 @@ public class UserSignUpRequestDto {
         this.longtitude = longtitude;
     }
 
-    public String getGender() {
-        return gender;
+    public String getAfm() {
+        return afm;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAfm(String afm) {
+        this.afm = afm;
     }
 
-    @Override
-    public String toString() {
-        return "UserSignUpRequestDto{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", rep_password='" + rep_password + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", mail='" + mail + '\'' +
-                ", phone_number='" + phone_number + '\'' +
-                ", latitude=" + latitude +
-                ", longtitude=" + longtitude +
-                ", afm='" + afm + '\'' +
-                ", address='" + address + '\'' +
-                ", role='" + role + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

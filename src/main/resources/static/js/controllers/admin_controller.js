@@ -12,3 +12,5 @@ app.controller('AdminController', ['$scope', function($scope) {
         return $scope.tab === tabNum;
     };
 }]);
+
+// 'ngMessages', 'material.svgAssetsCache',

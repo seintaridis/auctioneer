@@ -3,7 +3,7 @@ package com.dto;
 /**
  * Created by dimitris on 7/24/16.
  */
-public class UserLogInRequestDto {
+public class UserLoginRequestDto {
 
     private String username;
     private String email;
@@ -36,7 +36,7 @@ public class UserLogInRequestDto {
 
     @Override
     public String toString() {
-        return "UserLogInRequestDto{" +
+        return "UserLoginRequestDto{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

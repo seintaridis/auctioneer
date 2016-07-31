@@ -2,23 +2,20 @@
 
 <h1> Admin Panel </h1>
 
-<div class="col-md-2">
-    <ul class="nav nav-pills nav-stacked">
-        <li ng-class="{ active: isSet(1) }">
-            <a href ng-click="setTab(1)">Users List</a>
-        </li>
-        <li ng-class="{ active: isSet(2) }">
-            <a href ng-click="setTab(2)">Profile</a>
-        </li>
-    </ul>
-</div>
-<div class="col-md-8">
-    <div class="jumbotron">
-        <div ng-show="isSet(1)">
-            <h1>Users List</h1>
-        </div>
-        <div ng-show="isSet(2)">
-            <h1>Profile page</h1>
-        </div>
-    </div>
+<div ng-cloak="" class="tabsdemoDynamicHeight">
+    <md-content>
+        <md-tabs md-dynamic-height="" md-border-bottom="">
+            <md-tab label="users list">
+                <md-content class="md-padding">
+                    <users-list></users-list>
+                </md-content>
+            </md-tab>
+            <md-tab label="Edit User">
+                <md-content class="md-padding">
+                    <h1 class="md-display-2">Tab Two</h1>
+                    <p>Under Construction.</p>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
 </div>
